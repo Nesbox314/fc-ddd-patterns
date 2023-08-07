@@ -1,3 +1,4 @@
+import { EventDispatcherInstance } from "../../../infrastructure/event/event-dispatcher-instance";
 import SendEmailWhenProductIsCreatedHandler from "../../product/event/handler/send-email-when-product-is-created.handler";
 import ProductCreatedEvent from "../../product/event/product-created.event";
 import EventDispatcher from "./event-dispatcher";
@@ -79,4 +80,8 @@ describe("Domain events tests", () => {
 
     expect(spyEventHandler).toHaveBeenCalled();
   });
+
+  it("should have a event dispatcher instance", () => {
+    expect(EventDispatcherInstance.getInstance()).toBeDefined();
+  })
 });

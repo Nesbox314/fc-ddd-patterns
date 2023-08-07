@@ -1,3 +1,6 @@
+import { EventDispatcherInstance } from "../../../infrastructure/event/event-dispatcher-instance";
+import CustomerCreatedEvent from "../event/customer-created.event";
+import CustomerUpdatedEvent from "../event/customer-updated.event";
 import Address from "../value-object/address";
 
 export default class Customer {
@@ -11,6 +14,8 @@ export default class Customer {
     this._id = id;
     this._name = name;
     this.validate();
+
+    EventDispatcherInstance.getInstance().notify(new CustomerCreatedEvent({}))
   }
 
   get id(): string {
@@ -45,6 +50,8 @@ export default class Customer {
   
   changeAddress(address: Address) {
     this._address = address;
+    EventDispatcherInstance.getInstance()
+      .notify(new CustomerUpdatedEvent(this.id, this.name, address))
   }
 
   isActive(): boolean {
